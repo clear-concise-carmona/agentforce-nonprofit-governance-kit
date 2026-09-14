@@ -1,0 +1,56 @@
+{
+  "name": "agentforce-nonprofit-governance-kit",
+  "description": "sf CLI plugin that assesses a Salesforce org's Agentforce/Einstein AI governance posture against a 15-question weighted scorecard, plus forkable policy templates.",
+  "version": "1.0.0",
+  "author": "Jeremy Carmona (Clear Concise Consulting)",
+  "license": "MIT",
+  "homepage": "https://github.com/clear-concise-carmona/agentforce-nonprofit-governance-kit",
+  "bugs": "https://github.com/clear-concise-carmona/agentforce-nonprofit-governance-kit/issues",
+  "repository": "clear-concise-carmona/agentforce-nonprofit-governance-kit",
+  "main": "lib/index.js",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "files": [
+    "/lib",
+    "/messages",
+    "/scorer/readiness-questions.yml",
+    "/oclif.manifest.json"
+  ],
+  "dependencies": {
+    "@oclif/core": "^3",
+    "@salesforce/core": "^6",
+    "@salesforce/sf-plugins-core": "^7",
+    "js-yaml": "^4"
+  },
+  "devDependencies": {
+    "@oclif/test": "^3",
+    "@salesforce/dev-config": "^4",
+    "@types/chai": "^4",
+    "@types/js-yaml": "^4",
+    "@types/mocha": "^10",
+    "@types/node": "^20",
+    "chai": "^4",
+    "mocha": "^10",
+    "ts-node": "^10",
+    "typescript": "^5"
+  },
+  "oclif": {
+    "commands": "./lib/commands",
+    "bin": "sf",
+    "topicSeparator": " ",
+    "devPlugins": [
+      "@oclif/plugin-help"
+    ],
+    "topics": {
+      "agentforce": {
+        "description": "Commands for assessing Agentforce/Einstein AI governance posture in a nonprofit org."
+      }
+    }
+  },
+  "scripts": {
+    "build": "tsc -p .",
+    "test": "mocha --require ts-node/register 'test/**/*.test.ts'",
+    "prepack": "npm run build && oclif manifest && oclif readme"
+  }
+}

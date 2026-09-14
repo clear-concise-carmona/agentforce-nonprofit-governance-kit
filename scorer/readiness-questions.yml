@@ -1,0 +1,145 @@
+# readiness-questions.yml
+#
+# The 15-question weighted Agentforce governance readiness questionnaire.
+# Gate names, gate order, and gate descriptions are taken verbatim from
+# Clear Concise Consulting's Six Salesforce AI Governance Gates framework:
+# https://www.clearconciseconsulting.com/ai-center-of-excellence
+#
+# This is the free version of that framework, reduced to a self-serve
+# scorecard. It intentionally uses the same gate names and NIST AI RMF
+# function mapping as the paid framework so a nonprofit that starts here
+# and later engages Clear Concise Consulting is working from one set of
+# definitions, not two.
+#
+# Each question answers with one of: yes | partial | no
+#   yes     = full credit for that question's weight
+#   partial = half credit
+#   no      = zero credit
+#
+# Weights sum to 100. See scorer/score.ts for the scoring implementation.
+
+gates:
+  - id: "01"
+    nist_function: "MAP"
+    name: "Data Readiness"
+    description: >
+      Requires a data quality score of 7 of 10 or higher on the 10-metric
+      SOQL audit, a documented sharing model, and confirmed data ownership.
+    questions:
+      - id: q1_data_quality_score
+        weight: 10
+        text: >
+          Has this org run a data quality audit and scored 7 out of 10 or
+          higher on the 10-metric scale (see the companion
+          nonprofit-data-quality-scorecard tool)?
+      - id: q2_sharing_model_documented
+        weight: 4
+        text: "Is the org's sharing model documented somewhere your team can find it?"
+      - id: q3_data_ownership_confirmed
+        weight: 4
+        text: >
+          Is data ownership confirmed for every object the agent will read
+          or write (a named person or team, not "IT")?
+
+  - id: "02"
+    nist_function: "GOVERN"
+    name: "Permission and Access"
+    description: >
+      Requires field-level security verification on every object the agent
+      touches, Trust Layer configuration, and an integration user scoped to
+      least privilege.
+    questions:
+      - id: q4_fls_verified
+        weight: 8
+        text: >
+          Has field-level security been verified on every object and field
+          the agent touches, for the profile or permission set the agent
+          actually runs as?
+      - id: q5_trust_layer_configured
+        weight: 10
+        text: >
+          Is the Einstein Trust Layer configured for this org - data
+          masking and toxicity detection reviewed and turned on where
+          applicable (see einsteinTrustLayerSettings check)?
+      - id: q6_integration_user_least_privilege
+        weight: 6
+        text: >
+          Does the agent run as an integration user scoped to least
+          privilege, not System Administrator or an end user's own login?
+
+  - id: "03"
+    nist_function: "MAP + GOVERN"
+    name: "Design Review"
+    description: >
+      Requires use case risk classification, defined human oversight,
+      drafted four-audience documentation, and assigned accountability.
+    questions:
+      - id: q7_risk_classification
+        weight: 5
+        text: "Has this agent's use case been assigned a risk classification?"
+      - id: q8_human_oversight_defined
+        weight: 6
+        text: >
+          Is human oversight defined - who reviews agent output, and when
+          does a human have to approve before anything reaches a donor or
+          client?
+      - id: q9_four_audience_docs
+        weight: 4
+        text: >
+          Has four-audience documentation been drafted (end users, admins,
+          leadership, board) and has accountability been assigned to a
+          named owner?
+
+  - id: "04"
+    nist_function: "GOVERN + MAP"
+    name: "Agentic Governance Review"
+    description: >
+      Requires documented and tested agent action boundaries, enabled
+      Session Tracing, and scoped topic restrictions and tool
+      authorization.
+    questions:
+      - id: q10_action_boundaries_tested
+        weight: 8
+        text: >
+          Are the agent's action boundaries documented and have they
+          actually been tested (not just described in a slide)?
+      - id: q11_session_tracing_enabled
+        weight: 7
+        text: "Is Agentforce Session Tracing enabled for this agent?"
+      - id: q12_topic_tool_scoping
+        weight: 8
+        text: >
+          Are topic restrictions and tool authorization explicitly scoped
+          to what this agent needs, not left at "all topics, all actions"?
+
+  - id: "05"
+    nist_function: "MEASURE"
+    name: "Pre-Production Validation"
+    description: >
+      Requires bias and fairness testing on a representative sample, a
+      rollback drill in a Full sandbox, and pilot testing with named
+      reviewers.
+    questions:
+      - id: q13_bias_fairness_tested
+        weight: 6
+        text: "Has bias and fairness testing been run on a representative sample?"
+      - id: q14_rollback_and_pilot
+        weight: 6
+        text: >
+          Has a rollback drill been run in a Full sandbox, and has pilot
+          testing happened with named reviewers before general rollout?
+
+  - id: "06"
+    nist_function: "MANAGE"
+    name: "Post-Launch Governance"
+    description: >
+      Requires a scheduled 30-day review, baselined drift indicators, a
+      published incident response runbook, and a committed quarterly
+      review cadence.
+    questions:
+      - id: q15_post_launch_governance
+        weight: 8
+        text: >
+          Is there a scheduled 30-day review, a baseline for drift
+          indicators, a published incident response runbook, and a
+          committed quarterly review cadence?

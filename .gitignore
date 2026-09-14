@@ -1,0 +1,7 @@
+node_modules/
+/lib/
+/dist/
+oclif.manifest.json
+agentforce-governance-org-check.md
+*.log
+.DS_Store
