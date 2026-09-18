@@ -1,7 +1,20 @@
 # Sample Assessment: Riverside Community Services
 
-*This is a fictional worked example showing what the org check and the 15-question scorecard
-produce together, so you know what to expect before running either against your own org.*
+> **This example uses fictional or placeholder data. It does not represent a real Salesforce
+> org, client, or assessment result.** Riverside Community Services is invented.
+
+*A worked example showing what the org check and the 15-question scorecard produce together, so
+you know what to expect before running either against your own org.*
+
+**How this was produced.** The org check output below was written by hand to show the report
+format, since this kit has no live org with Agentforce enabled to scan. The score block further
+down was not written by hand: it is the actual output of `scorer/score.ts` run against the
+answers table in this file. Reproduce it by copying the answer table into a YAML file, one
+`id: value` pair per line, and running:
+
+```bash
+npx ts-node scorer/score.ts your-copy.yml
+```
 
 ## Org check output (`sf agentforce assess`)
 

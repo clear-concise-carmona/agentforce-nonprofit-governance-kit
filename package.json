@@ -1,13 +1,12 @@
 {
   "name": "agentforce-nonprofit-governance-kit",
   "description": "sf CLI plugin that assesses a Salesforce org's Agentforce/Einstein AI governance posture against a 15-question weighted scorecard, plus forkable policy templates.",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "author": "Jeremy Carmona (Clear Concise Consulting)",
   "license": "MIT",
   "homepage": "https://github.com/clear-concise-carmona/agentforce-nonprofit-governance-kit",
   "bugs": "https://github.com/clear-concise-carmona/agentforce-nonprofit-governance-kit/issues",
   "repository": "clear-concise-carmona/agentforce-nonprofit-governance-kit",
-  "main": "lib/index.js",
   "engines": {
     "node": ">=18.0.0"
   },

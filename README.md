@@ -131,6 +131,77 @@ nonprofit's org check output, its 15-question answers, the resulting 64/100 scor
 gate, and what they prioritized fixing first (a Setup toggle and a calendar invite, not a
 project).
 
+## How to validate results
+
+This kit produces two separate things, and they need validating differently.
+
+**The 15-question scorecard is a self-assessment.** Its output is only as honest as its inputs.
+Before the number leaves the room:
+
+1. Answer it with the people who would know, not alone. Gate 05 and Gate 06 ask whether things
+   actually happened. A Salesforce admin usually cannot answer for the board, and the board
+   usually cannot answer for the integration user's permission set.
+2. Require evidence for every `yes`. A link to the document, the sandbox drill notes, the
+   calendar invite for the 30-day review. A `yes` with nothing behind it is a `partial`.
+3. Re-run the scorer after you change answers, rather than adjusting the total by hand:
+   `npx ts-node scorer/score.ts your-answers.yml`.
+4. Keep the answers file. The point is the delta at the next quarterly review, not the first
+   score.
+
+**The automated org checks need confirming in Setup.** They read what the API exposes, and that
+surface has been moving:
+
+1. Run `sf agentforce assess` against a sandbox first.
+2. Treat "could not determine" as unread, not as off. It means the check could not read the
+   setting. Open Setup and look.
+3. Confirm every reported value by hand before recording a governance control as satisfied.
+   Trust Layer settings in particular: open Setup, Einstein Setup, and read the toggles.
+4. Compare the agent inventory against what Setup shows under Agentforce Agents. A published
+   version the check missed is a bug worth an issue.
+5. Consent field coverage matches on field naming. A consent field your org named something
+   unusual will not be recognized, and a field with a consent-like name that your org uses for
+   something else will be. Confirm what the field actually means in your org before counting it.
+
+If a check reads your org wrong, open an issue or a PR with the corrected object or field name.
+That is the most useful contribution this repo can receive.
+
+## Limitations
+
+This kit supports technical assessment and review. It does not replace architecture review,
+security review, legal advice, compliance determination, or organization-specific implementation
+decisions. Review the source, the question weights, and the output before relying on a result.
+
+- **The org checks have not been confirmed against a live org with Agentforce enabled.** This is
+  stated above and in every check file header, and it is the single most important limit here.
+- **The scorecard is self-reported.** It cannot detect an optimistic answer. It is a structured
+  conversation, not an audit.
+- **The 15 questions are not exhaustive.** Six gates and 15 questions cover the ground that has
+  come up repeatedly in scoping work. An organization with unusual risk, direct-to-beneficiary
+  agents or clinical data for example, has questions this scorecard does not ask.
+- **The question weights are documented judgment, not a validated model.** They sum to 100 and
+  the reasoning is visible in `scorer/readiness-questions.yml`. Disagree with one, change it,
+  and say that you did.
+- **The policy templates are drafting starting points, not legal advice.** They need review by
+  someone with legal or compliance authority at your organization before adoption.
+- **NIST AI RMF and ISO 42001 are referenced for structure only.** Mapping a question to a NIST
+  function does not make a score a NIST assessment, and nothing here certifies or determines
+  conformity with either framework.
+- **A score is not a go or no-go decision.** It shows which gates are weak. A person decides
+  whether to deploy an agent.
+
+## Maintenance Status
+
+This is an independently maintained open-source project by Clear Concise Consulting. Issues and
+pull requests are welcome. Maintenance is prioritized around correctness, documentation,
+security concerns, and compatibility with supported Salesforce tooling. No response-time or
+feature-delivery commitment is implied.
+
+Current release: **v0.1.0**, the first tagged release. It builds and its 11 unit tests pass in
+CI. The org checks have not been confirmed against a live org with Agentforce enabled. Corrections
+to object and field names from anyone who has one are the most valuable contribution here.
+
+Security reports: see [SECURITY.md](SECURITY.md).
+
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) - especially the section on correcting field/object names
